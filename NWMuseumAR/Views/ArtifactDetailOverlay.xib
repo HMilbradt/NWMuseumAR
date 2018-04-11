@@ -38,11 +38,11 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aao-ok-56e">
                     <rect key="frame" x="0.0" y="127" width="375" height="240"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Confetti" translatesAutoresizingMaskIntoConstraints="NO" id="kSc-Ax-TFW">
-                            <rect key="frame" x="8" y="0.0" width="359" height="240"/>
-                        </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FireIcon" translatesAutoresizingMaskIntoConstraints="NO" id="aIg-Eb-MRw">
                             <rect key="frame" x="116" y="45" width="143" height="151"/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Confetti" translatesAutoresizingMaskIntoConstraints="NO" id="kSc-Ax-TFW">
+                            <rect key="frame" x="8" y="0.0" width="359" height="240"/>
                         </imageView>
                     </subviews>
                     <constraints>

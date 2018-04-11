@@ -60,10 +60,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
         } else {
+            fatalError("Device not supported")
             // TODO: - Set this to unsupported device controller
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .horizontal
-            homeViewController = OnboardingController(collectionViewLayout: layout)
         }
 
         // Show our starting controller to the user
