@@ -12,6 +12,9 @@ import UIKit
 
 extension Artifact {
     
+    /**
+     Returns all artifacts in the database.
+     */
     static func getAll() -> [Artifact] {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 

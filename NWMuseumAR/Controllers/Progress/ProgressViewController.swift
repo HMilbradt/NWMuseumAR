@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProgressViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ProgressViewController: UIViewController {
     
     var artifacts: [Artifact]?
     
@@ -104,6 +104,15 @@ class ProgressViewController: UIViewController, UICollectionViewDataSource, UICo
         view.addSubview(overlayView!)
     }
     
+    /** Hide Status Bar */
+    override var prefersStatusBarHidden: Bool
+    {
+        return true
+    }
+}
+
+extension ProgressViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     /** Sets the spacing between collection views. */
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
@@ -140,16 +149,10 @@ class ProgressViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
+        
         let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerId", for: indexPath) as! ProgressHeaderCell
         
         reusableview.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 310)
         return reusableview
-    }
-    
-    /** Hide Status Bar */
-    override var prefersStatusBarHidden: Bool
-    {
-        return true
     }
 }
