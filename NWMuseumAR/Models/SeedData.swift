@@ -9,7 +9,6 @@
 import Foundation
 
 let SEED_DATA = [
-    ["title": "Wayfinding", "hint": "Dont matter", "image": "WayfindingIcon"],
     ["title": "Canoe", "hint": "The canoes have braved the Fraser River countless times.", "image": "CanoeIcon"],
     ["title": "Fire", "hint": "The Great Fire of New Westminster that destroyed most of the town", "image": "FireIcon"],
     ["title": "Freedom", "hint": "Freedom granted to Ernest Alvia Smith V.C.", "image": "FreedomIcon"],

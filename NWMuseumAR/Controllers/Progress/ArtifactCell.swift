@@ -150,29 +150,14 @@ class ArtifactCell: UICollectionViewCell
         parentViewController?.show(viewController, sender: self)
     }
     
-    @objc func wayfindingButtonTapped() {
-        let viewController = NavigationViewController()
-        parentViewController?.show(viewController, sender: self)
-    }
-    
     @objc func unlockedButtonTapped() {
-        debugPrint("Unlock button tapped \(artifactDescription)")
         self.parentViewController?.showOverlay(artifactName: imageName!, description: artifactDescription!)
     }
     
     /** Setup layout for artifact cell. */
     func setupLayout()
     {
-        debugPrint(artifactTitle.text)
-        
-        if artifactTitle.text == "WAYFINDING" {
-            artifactTitle.text = "NAVIGATE"
-            artifactSubtitle.text = "FIND YOUR WAY"
-            artifactButton = artifactButtonWayfinding
-            artifactStatusIcon.image = #imageLiteral(resourceName: "Unlocked")
-            artifactButton?.addTarget(self, action: #selector(wayfindingButtonTapped), for: .touchUpInside)
-            
-        } else if !completed {
+        if !completed {
             artifactButton = artifactButtonLocked
             artifactStatusIcon.image = #imageLiteral(resourceName: "Locked")
             artifactButton?.addTarget(self, action: #selector(lockedButtonTapped), for: .touchUpInside)

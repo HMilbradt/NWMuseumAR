@@ -51,8 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let layout = UICollectionViewFlowLayout()
                 layout.scrollDirection = .horizontal
                 homeViewController = OnboardingController(collectionViewLayout: layout)
-                // TODO: - Remove this shit
-                //UserDefaults.standard.set(true, forKey: "launchedBefore")
+                UserDefaults.standard.set(true, forKey: "launchedBefore")
             }
             
             // seed database if not already seeded

@@ -28,110 +28,30 @@ class ProgressViewController: UIViewController, UICollectionViewDataSource, UICo
         artifactCollectionView.delegate = self
         
         view.backgroundColor = UIColor(red: 0.97, green: 0.96, blue: 0.98, alpha: 1.0)
+        
     }
     
     /** Artifacts Collection View */
     let artifactCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 200, height: 200), collectionViewLayout: layout)
+        // TODO: - Update this mess to support other screen sizes
+        layout.headerReferenceSize = CGSize(width: 375, height: 310)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = UIColor(red: 0.97, green: 0.96, blue: 0.98, alpha: 1.0)
         collectionView.register(ArtifactCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView.register(ProgressHeaderCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerId")
         return collectionView
-    }()
-    
-    /** Top Container Wrapper */
-    lazy var topContainer: UIView = {
-        let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-        container.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 310)
-        container.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "Top Page Container"))
-        return container
-    }()
-    
-    /** Title */
-    let topContainerTitle: UITextView = {
-        let title = UITextView()
-        title.translatesAutoresizingMaskIntoConstraints = false
-        title.textAlignment = .center
-        title.textColor = .mainTitleDark
-        title.isEditable = false
-        title.isScrollEnabled = false
-        title.isSelectable = false
-        title.backgroundColor = nil
-        let attributedString = NSMutableAttributedString(string: "ARTIFACTS")
-        let paragraphStyle = NSMutableParagraphStyle.init()
-        paragraphStyle.alignment = .center
-        attributedString.addAttributes([
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.heavy),
-            NSAttributedStringKey.kern: 3,
-            NSAttributedStringKey.foregroundColor: UIColor(red: 0.26, green: 0.28, blue: 0.37, alpha: 1.0),
-            NSAttributedStringKey.paragraphStyle: paragraphStyle
-            ], range: NSRange(location: 0, length: attributedString.length))
-        title.attributedText = attributedString
-        return title
-    }()
-    
-    /** Subtitle */
-    let topContainerSubtitle: UITextView = {
-        let subtitle = UITextView()
-        subtitle.translatesAutoresizingMaskIntoConstraints = false
-        subtitle.isEditable = false
-        subtitle.isScrollEnabled = false
-        subtitle.isSelectable = false
-        subtitle.backgroundColor = nil
-        subtitle.text = "0 COLLECTED"
-        
-        let attributedString = NSMutableAttributedString(string: "\(Artifact.countCompleted()) COMPLETED")
-        let paragraphStyle = NSMutableParagraphStyle.init()
-        paragraphStyle.alignment = .center
-        attributedString.addAttributes([
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium),
-            NSAttributedStringKey.kern: 2.5,
-            NSAttributedStringKey.foregroundColor: UIColor(red: 0.67, green: 0.69, blue: 0.73, alpha: 1.0),
-            NSAttributedStringKey.paragraphStyle: paragraphStyle
-            ], range: NSRange(location: 0, length: attributedString.length))
-        subtitle.attributedText = attributedString
-        
-        return subtitle
     }()
     
     fileprivate func setupViewsLayout()
     {
-        // Top container
-        let topContainer = UIView()
-        topContainer.translatesAutoresizingMaskIntoConstraints = false
-        topContainer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 310)
-        topContainer.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "Top Page Container"))
-        view.addSubview(topContainer)
-        NSLayoutConstraint.activate([
-            topContainer.topAnchor.constraint(equalTo: view.topAnchor),
-            topContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            topContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            topContainer.heightAnchor.constraint(equalToConstant: 310)
-            ])
-        
-        // Top title.
-        topContainer.addSubview(topContainerTitle)
-        NSLayoutConstraint.activate([
-            topContainerTitle.bottomAnchor.constraint(equalTo: topContainer.bottomAnchor, constant: -33),
-            topContainerTitle.leftAnchor.constraint(equalTo: topContainer.leftAnchor),
-            topContainerTitle.rightAnchor.constraint(equalTo: topContainer.rightAnchor)
-            ])
-        
-        // Number of artifacts collected.
-        topContainer.addSubview(topContainerSubtitle)
-        NSLayoutConstraint.activate([
-            topContainerSubtitle.bottomAnchor.constraint(equalTo: topContainer.bottomAnchor, constant: -14),
-            topContainerSubtitle.leftAnchor.constraint(equalTo: topContainer.leftAnchor),
-            topContainerSubtitle.rightAnchor.constraint(equalTo: topContainer.rightAnchor)
-            ])
-        
         // Artifact Collection View
+        
         view.addSubview(artifactCollectionView)
         NSLayoutConstraint.activate([
-            artifactCollectionView.topAnchor.constraint(equalTo: topContainer.bottomAnchor),
+            artifactCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             artifactCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             artifactCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
             artifactCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -217,6 +137,14 @@ class ProgressViewController: UIViewController, UICollectionViewDataSource, UICo
     /** Sets the size of each cell. */
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 120)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
+        let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerId", for: indexPath) as! ProgressHeaderCell
+        
+        reusableview.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 310)
+        return reusableview
     }
     
     /** Hide Status Bar */

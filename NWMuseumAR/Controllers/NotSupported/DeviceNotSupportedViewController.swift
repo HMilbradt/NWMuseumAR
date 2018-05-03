@@ -25,10 +25,6 @@ class DeviceNotSupportedViewController: UICollectionViewController, UICollection
         "THIS APP REQUIRES IOS 11.3 AS WELL AS A DEVICE CAPABLE OF RUNNING ARKIT",
     ]
     
-    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let x = targetContentOffset.pointee.x
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
